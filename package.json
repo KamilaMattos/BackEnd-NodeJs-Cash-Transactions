@@ -1,8 +1,7 @@
 {
-  "name": "e5",
+  "name": "ng",
   "version": "1.0.0",
   "main": "server.ts",
-  "author": "Felipe <felipe.silva@kenzie.com.br>",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
