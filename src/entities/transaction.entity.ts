@@ -19,10 +19,10 @@ class Transaction {
   createdAt: Date
 
   @ManyToOne(() => Account, (account) => account.id)
-  debitedAccountID: Account
+  debitedAccount: Account
 
   @ManyToOne(() => Account, (account) => account.id)
-  creditedAccountID: Account
+  creditedAccount: Account
 }
 
 export { Transaction }

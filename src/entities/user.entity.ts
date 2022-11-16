@@ -20,9 +20,15 @@ class User {
   @Exclude()
   password: string
 
-  @OneToOne(() => Account, { cascade: true })
-  @JoinColumn()
-  accountID: Account
+  @OneToOne(() => Account, { cascade: true, eager: true })
+  @JoinColumn({ name: "accountId" })
+  account: Account
+
+  // @Column()
+  // isAdm: boolean
+
+  // @Column({ default: true })
+  // isActive: boolean
 }
 
 export { User }
