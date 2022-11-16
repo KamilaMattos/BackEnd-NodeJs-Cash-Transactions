@@ -2,6 +2,7 @@
   "name": "ng",
   "version": "1.0.0",
   "main": "server.ts",
+  "author": "Kamila <kamila_mattos@hotmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
