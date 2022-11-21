@@ -1,18 +1,22 @@
 import * as yup from "yup"
-import { SchemaOf } from "yup"
-import { IUserRequest } from "../interfaces/users"
+import YupPassword from "yup-password"
 
-const userSchema: SchemaOf<IUserRequest> = yup.object().shape({
+import { SchemaOf } from "yup"
+import { IUser } from "../interfaces/users"
+
+YupPassword(yup)
+
+const userSchema: SchemaOf<IUser> = yup.object().shape({
   username: yup
     .string()
-    .required("O nome de usuário é obrigatório!")
-    .min(3, "O nome de usuário deve conter no mínimo três caracteres!"),
+    .min(3, "O nome de usuário deve conter no mínimo três caracteres!")
+    .required(),
   password: yup
     .string()
-    .required("A senha é obrigatória!")
-    .min(8, "Sua senha deve conter no mínimo oito caracteres!")
-    .matches(/[A-Z]/, "Sua senha deve conter pelo menos uma letra maiúscula!")
-    .matches(/[0-9]/, "Sua senha deve conter pelo menos um número!"),
+    .min(8, "A senha deve conter no mínimo oito caracteres!")
+    .minUppercase(1, "A senha deve conter pelo menos uma letra maiúscula!")
+    .minNumbers(1, "A senha deve conter pelo menos um número!")
+    .required(),
 })
 
 export { userSchema }

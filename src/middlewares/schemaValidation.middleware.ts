@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express"
 import { AnySchema } from "yup"
 
-export const schemaValidationMiddleware =
+export const schemaValidation =
   (schema: AnySchema) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = req.body
-      const validate = await schema.validate(user, {
+      const data = req.body
+      const validate = await schema.validate(data, {
         abortEarly: false,
         stripUnknown: true,
       })

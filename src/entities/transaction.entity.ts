@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
 } from "typeorm"
+
 import { Account } from "./account.entity"
 
 @Entity("transactions")
@@ -12,16 +13,20 @@ class Transaction {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string
 
-  @Column("decimal", { precision: 12, scale: 2 })
+  @Column()
   value: number
 
-  @CreateDateColumn({ type: "date" })
+  @CreateDateColumn()
   createdAt: Date
 
-  @ManyToOne(() => Account, (account) => account.id)
+  @ManyToOne(() => Account, (account) => account.debitedTransactions, {
+    eager: true,
+  })
   debitedAccount: Account
 
-  @ManyToOne(() => Account, (account) => account.id)
+  @ManyToOne(() => Account, (account) => account.creditedTransactions, {
+    eager: true,
+  })
   creditedAccount: Account
 }
 

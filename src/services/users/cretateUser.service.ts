@@ -1,6 +1,6 @@
 import AppDataSource from "../../data-source"
 import { User } from "../../entities/user.entity"
-import { IUserRequest } from "../../interfaces/users"
+import { IUser } from "../../interfaces/users"
 import { AppError } from "../../errors/appError"
 import { hash } from "bcryptjs"
 import { Account } from "../../entities/account.entity"
@@ -8,27 +8,31 @@ import { Account } from "../../entities/account.entity"
 export const createUserService = async ({
   username,
   password,
-}: IUserRequest): Promise<User> => {
+}: IUser): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User)
   const accountRepository = AppDataSource.getRepository(Account)
-  const userAlreadyExists = await userRepository.findOneBy({
-    username: username,
-  })
+
+  const userAlreadyExists = await userRepository.findOneBy({ username })
 
   if (userAlreadyExists) {
     throw new AppError("Usuário já cadastrado!", 400)
   }
 
-  const hashedPassword = await hash(password, 10)
-  const createAccount = await accountRepository.save({})
-
-  const createdUser = userRepository.create({
-    username,
-    password: hashedPassword,
-    account: createAccount,
+  const createdUserAccount = accountRepository.create({
+    balance: 100,
   })
 
-  const savedUser = userRepository.save(createdUser)
+  await accountRepository.save(createdUserAccount)
 
-  return savedUser
+  const hashedPassword = await hash(password, 10)
+
+  const newUser = userRepository.create({
+    username,
+    password: hashedPassword,
+    account: createdUserAccount,
+  })
+
+  await userRepository.save(newUser)
+
+  return newUser
 }

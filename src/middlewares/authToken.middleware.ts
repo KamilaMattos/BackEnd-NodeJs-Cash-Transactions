@@ -25,6 +25,7 @@ export const authToken = async (
 
       req.user = {
         id: decoded.sub,
+        username: decoded.username,
       }
     }
   )

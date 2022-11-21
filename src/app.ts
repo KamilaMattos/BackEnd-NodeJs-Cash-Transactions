@@ -1,19 +1,18 @@
 import "reflect-metadata"
 import "express-async-errors"
+
 import express from "express"
 
-import { usersRoute } from "./routes/users"
-import { sessionRoutes } from "./routes/session"
-
 import { handleErrorMiddleware } from "./middlewares/errors.middleware"
-import { transactionsRoutes } from "./routes/transactions"
+import { appRoutes } from "./routes"
+
+//const cors = require("cors")
 
 const app = express()
 app.use(express.json())
+//app.use(cors());
 
-app.use("/user", usersRoute)
-app.use("/login", sessionRoutes)
-app.use("/transactions", transactionsRoutes)
+appRoutes(app);
 
 app.use(handleErrorMiddleware)
 

@@ -6,6 +6,7 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm"
+
 import { Account } from "./account.entity"
 
 @Entity("users")
@@ -21,14 +22,8 @@ class User {
   password: string
 
   @OneToOne(() => Account, { cascade: true, eager: true })
-  @JoinColumn({ name: "accountId" })
+  @JoinColumn()
   account: Account
-
-  // @Column()
-  // isAdm: boolean
-
-  // @Column({ default: true })
-  // isActive: boolean
 }
 
 export { User }

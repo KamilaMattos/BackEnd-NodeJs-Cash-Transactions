@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer"
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import { Transaction } from "./transaction.entity"
 
@@ -6,11 +7,14 @@ class Account {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string
 
-  @Column("decimal", { precision: 12, scale: 2, default: 100.00 })
+  @Column()
   balance: number
 
-  @OneToMany(() => Transaction, (transaction) => transaction.id)
-  transactions: Transaction[]
+  @OneToMany(() => Transaction, (transaction) => transaction.debitedAccount)
+  debitedTransactions: Transaction[]
+
+  @OneToMany(() => Transaction, (transaction) => transaction.creditedAccount)
+  creditedTransactions: Transaction[]
 }
 
 export { Account }
