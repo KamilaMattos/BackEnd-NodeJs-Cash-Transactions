@@ -22,27 +22,7 @@ npm install --global yarn
 ````
 <br>
 
-# Como alternar entre docker e localhost
-
-Esse projeto já está com o Docker configurado e pronto para uso
-
-Basta buildar e subir os containers usando o comando padrão:
-````
-docker-compose up --build
-````
-
-ou
-````
-docker compose up --build
-````
-O comando pode variar com a versão do docker compose instalada em sua máquina
-
-***ATENÇÃO:*** a porta utilizada para rodar o docker é a `5431`.
-Caso tenha algum problema com essa porta, basta alterá-la no docker-compose.yml.
-
-<br>
-
-## **Mas caso você necessite executar o projeto em `localhost`**
+## **Como executar o projeto em `localhost`**
 **Configure as variáveis de ambiente no seu .env**, passando as credenciais corretas para conectar em seu banco local
 
 E altere a variável **`DB_HOST`** para **`localhost`**
